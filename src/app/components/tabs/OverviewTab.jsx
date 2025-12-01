@@ -24,8 +24,7 @@ const splitList = (val) => {
   const s = String(val ?? "").trim();
   if (!s) return [];
   return s
-    .split(/[;|]+/g)
-    .flatMap((t) => t.split(/\s*,\s*(?=[^)]*(?:\(|$))/g))
+    .split(";")
     .map((x) => x.trim())
     .filter(Boolean);
 };
@@ -110,6 +109,9 @@ function useDerivedData(docs) {
     const authorsSet = new Set();
     let totalAuthorsSum = 0;
     let singleAuthorDocs = 0;
+    let maxAuthorsPerDoc = 0;
+    let minAuthorsPerDoc = Number.POSITIVE_INFINITY;
+
     for (const r of docs) {
       const authors = splitList(
         pick(r.raw, ["AU", "Authors", "Author(s)", "Author Names"], "")
@@ -117,15 +119,22 @@ function useDerivedData(docs) {
         .map(normalizeStr)
         .filter(Boolean);
 
+      const len = authors.length;
+
       authors.forEach((a) => authorsSet.add(a));
-      totalAuthorsSum += authors.length;
-      if (authors.length === 1) singleAuthorDocs += 1;
+      totalAuthorsSum += len;
+      if (len === 1) singleAuthorDocs += 1;
+
+      if (len > maxAuthorsPerDoc) maxAuthorsPerDoc = len;
+      if (len < minAuthorsPerDoc) minAuthorsPerDoc = len;
     }
 
     const totalAuthorsDistinct = authorsSet.size;
-    const authorsPerDoc = docs.length
-      ? totalAuthorsSum / docs.length
-      : 0;
+    const authorsPerDoc = docs.length ? totalAuthorsSum / docs.length : 0;
+
+    if (minAuthorsPerDoc === Number.POSITIVE_INFINITY) {
+      minAuthorsPerDoc = 0;
+    }
 
     let intl = 0,
       counted = 0;
@@ -203,6 +212,13 @@ function useDerivedData(docs) {
       ? citedList.reduce((s, n) => s + n, 0) / docs.length
       : 0;
 
+    const maxCitationsPerDoc = citedList.length
+      ? Math.max(...citedList)
+      : 0;
+    const minCitationsPerDoc = citedList.length
+      ? Math.min(...citedList)
+      : 0;
+
     let annualGrowthRate = 0;
     const arr = yearBuckets.filter((x) => x.count > 0);
     if (arr.length >= 2) {
@@ -234,11 +250,15 @@ function useDerivedData(docs) {
       totalAuthorsDistinct,
       authorsPerDoc,
       singleAuthorDocs,
+      maxAuthorsPerDoc,
+      minAuthorsPerDoc,
       internationalCoauthorshipPct,
       authorKeywordsDistinct,
       uniqueReferencesCount,
       avgAgeYears,
       avgCitationsPerDoc,
+      maxCitationsPerDoc,
+      minCitationsPerDoc,
       annualChartsData,
     };
   }, [docs]);
@@ -340,11 +360,15 @@ export default function OverviewTab() {
     totalAuthorsDistinct,
     authorsPerDoc,
     singleAuthorDocs,
+    maxAuthorsPerDoc,
+    minAuthorsPerDoc,
     internationalCoauthorshipPct,
     authorKeywordsDistinct,
     uniqueReferencesCount,
     avgAgeYears,
     avgCitationsPerDoc,
+    maxCitationsPerDoc,
+    minCitationsPerDoc,
     annualChartsData,
   } = useDerivedData(docs);
 
@@ -382,7 +406,7 @@ export default function OverviewTab() {
             maxWidth: 720,
             margin: "0 auto 16px",
             fontSize: "0.9rem",
-            paddingTop: 16,  
+            paddingTop: 16,
           }}
         >
           {TABS[tab].helpText}
@@ -412,16 +436,11 @@ export default function OverviewTab() {
                     "repeat(auto-fit, minmax(260px, 1fr))",
                 }}
               >
+                {/* Production & period */}
                 <IndicatorCard
                   title="Analysis period"
                   value={analysisPeriod}
                   description="Time window covered by the selected publications."
-                  tone="olive"
-                />
-                <IndicatorCard
-                  title="Sources"
-                  value={fmtInt(sourcesDistinct)}
-                  description="Distinct journals, conferences, or books where the documents were published."
                   tone="olive"
                 />
                 <IndicatorCard
@@ -436,11 +455,36 @@ export default function OverviewTab() {
                   description="Compound annual growth rate (CAGR) of the publication output."
                   tone="olive"
                 />
+                <IndicatorCard
+                  title="Sources"
+                  value={fmtInt(sourcesDistinct)}
+                  description="Distinct journals, conferences, or books where the documents were published."
+                  tone="olive"
+                />
 
+                {/* Authorship structure */}
                 <IndicatorCard
                   title="Authors"
                   value={fmtInt(totalAuthorsDistinct)}
                   description="Distinct authors appearing in the selected documents."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Authors per document"
+                  value={fmt2(authorsPerDoc)}
+                  description="Average number of authors per publication."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Most authors in a document"
+                  value={fmtInt(maxAuthorsPerDoc)}
+                  description="Highest number of authors listed on a single publication."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Fewest authors in a document"
+                  value={fmtInt(minAuthorsPerDoc)}
+                  description="Smallest number of authors found on a single publication."
                   tone="olive"
                 />
                 <IndicatorCard
@@ -455,13 +499,34 @@ export default function OverviewTab() {
                   description="Percentage of publications authored by researchers from more than one country."
                   tone="olive"
                 />
+
+                {/* Citation & age */}
                 <IndicatorCard
-                  title="Authors per document"
-                  value={fmt2(authorsPerDoc)}
-                  description="Average number of authors per publication."
+                  title="Average citations per document"
+                  value={fmt2(avgCitationsPerDoc)}
+                  description="Average number of citations received by each publication."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Most citations (single document)"
+                  value={fmtInt(maxCitationsPerDoc)}
+                  description="Highest citation count received by an individual publication."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Fewest citations (single document)"
+                  value={fmtInt(minCitationsPerDoc)}
+                  description="Lowest citation count observed among the selected publications."
+                  tone="olive"
+                />
+                <IndicatorCard
+                  title="Average document age"
+                  value={fmt2(avgAgeYears)}
+                  description="Average age (in years) of the selected publications."
                   tone="olive"
                 />
 
+                {/* Content indicators */}
                 <IndicatorCard
                   title="Author keywords"
                   value={fmtInt(authorKeywordsDistinct)}
@@ -472,18 +537,6 @@ export default function OverviewTab() {
                   title="References (unique)"
                   value={fmtInt(uniqueReferencesCount)}
                   description="Unique referenced works cited across all documents."
-                  tone="olive"
-                />
-                <IndicatorCard
-                  title="Average document age"
-                  value={fmt2(avgAgeYears)}
-                  description="Average age (in years) of the selected publications."
-                  tone="olive"
-                />
-                <IndicatorCard
-                  title="Average citations per document"
-                  value={fmt2(avgCitationsPerDoc)}
-                  description="Average number of citations received by each publication."
                   tone="olive"
                 />
               </div>

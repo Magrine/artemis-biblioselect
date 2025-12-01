@@ -56,8 +56,7 @@ const splitAuthors = (raw) => {
   const s = String(raw ?? "").trim();
   if (!s) return [];
   return s
-    .split(/[;|]/g)
-    .flatMap((t) => t.split(/\s+and\s+|,\s*/gi))
+    .split(";")
     .map((x) => x.trim())
     .filter(Boolean);
 };
