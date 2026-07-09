@@ -1,0 +1,34 @@
+    :root {
+      /* Paleta inspirada na logo (monocromático nobre + acentos naturais) */
+      --ink-900: #161412;
+      /* quase preto */
+      --ink-800: #1f1b1a;
+      --ink-700: #2c2a29;
+      --ink-600: #3b3735;
+      --ink-500: #524e4c;
+      --moon-400: #8f8b88;
+      /* prata/lua */
+      --moon-300: #b7b4b1;
+      --moon-200: #d7d5d3;
+      --moon-100: #efeeed;
+      --paper: #faf9f8;
+      --olive-600: #2d6a4f;
+      /* acento caçada/floresta */
+      --olive-500: #3a7f61;
+      --olive-400: #56a07e;
+      --copper-500: #b87333;
+      /* acento metálico (flecha) */
+      --rose-500: #b4444a;
+      /* estados de erro/sinalização */
+      --gold-500: #c9a227;
+      /* aviso */
+      --sky-500: #3a7bd5;
+      /* info */
+      --radius-xl: 1.25rem;
+      --radius-lg: 0.875rem;
+      --radius-md: 0.625rem;
+      --radius-sm: .425rem;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, .06);
+      --shadow-md: 0 6px 16px rgba(0, 0, 0, .10);
+      --shadow-lg: 0 12px 28px rgba(0, 0, 0, .18);
+    }

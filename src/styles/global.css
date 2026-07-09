@@ -1,0 +1,738 @@
+/* src/styles/globals.css */
+@import url('./tokens.css');
+
+* {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+html,
+    body {
+      height: 100%;
+      background-color: #FAF9F8;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink-800);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.45;
+      letter-spacing: .2px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: Cinzel, Georgia, 'Times New Roman', serif;
+      color: var(--ink-900);
+      letter-spacing: .4px
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem)
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 2.3vw, 1.9rem)
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 1.8vw, 1.3rem)
+    }
+
+    /* Layout da vitrine */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    @media (max-width:900px) {
+      .grid.cols-2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* Navbar */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: #fffdfcbd;
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid var(--moon-200)
+    }
+
+    .nav .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Cinzel;
+      font-weight: 700;
+      letter-spacing: 3px
+    }
+
+    .brand img {
+      height: 32px;
+      width: auto;
+      filter: grayscale(100%) contrast(110%)
+    }
+
+    .nav .spacer {
+      flex: 1
+    }
+
+    .nav a {
+      color: var(--ink-700);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px
+    }
+
+    .nav a:hover {
+      background: var(--moon-100)
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items: center;
+      padding: 40px 0
+    }
+
+    .hero .card {
+      background: white;
+      border: 1px solid var(--moon-200);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      padding: 28px
+    }
+
+    .kicker {
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: var(--olive-600)
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border: 1px solid var(--moon-200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm)
+    }
+
+    .card>.card-body {
+      padding: 18px 18px 20px;
+    }
+    .list-articles-loaded{
+      overflow-y: scroll;
+      max-height: calc(100vh - 220px);
+      scrollbar-width:auto;
+    }
+    
+    .grid-container {
+      display: grid;
+      grid-template-columns: minmax(260px, 340px) 1fr minmax(260px, 360px);
+      gap: 16px;
+      align-items: stretch;
+      min-height: 0;
+      max-height: calc(100vh - 220px);
+    }
+    .card .card-title {
+      margin: 0 0 8px
+    }
+
+    .muted {
+      color: var(--moon-500, var(--moon-400))
+    }
+
+    /* Botões */
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 10px 16px;
+      transition: .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .btn:disabled {
+      opacity: .65;
+      cursor: not-allowed
+    }
+
+    .btn-primary {
+      background: var(--olive-600);
+      color: white
+    }
+
+    .btn-primary:hover {
+      filter: brightness(.95);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm)
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--olive-600);
+      border: 1px solid var(--olive-600)
+    }
+
+    .btn-secondary:hover {
+      background: var(--moon-100)
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-700)
+    }
+
+    .btn-ghost:hover {
+      background: var(--moon-100)
+    }
+
+    .btn-copper {
+      background: var(--copper-500);
+      color: white
+    }
+
+    .btn-red {
+      background: var(--rose-500);
+      color: white
+    }
+    /* Formulários */
+    .field {
+      display: grid;
+      gap: 6px
+    }
+    .form-field { display: grid; gap: 6px; }
+    .form-label { font-weight: 600; }
+    .form-help {
+      display: block;
+      min-height: 20px;    
+      line-height: 20px;
+      color: var(--ink-500, #6b7280);
+      font-size: 0.85rem;
+    }
+
+
+    .label {
+      font-size: .9rem;
+      font-weight: 600
+    }
+
+    .input,
+    select,
+    textarea {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--moon-300);
+      background: white;
+      color: var(--ink-800);
+      outline: none;
+      transition: border .15s ease, box-shadow .15s ease
+    }
+
+    .input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--olive-500);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive-500) 28%, transparent)
+    }
+
+    .help {
+      font-size: .85rem;
+      color: var(--moon-500)
+    }
+
+    .input.invalid {
+      border-color: var(--rose-500)
+    }
+
+    /* Badges & etiquetas */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+      border: 1px solid var(--moon-300)
+    }
+
+    .badge.olive {
+      background: color-mix(in oklab, var(--olive-600) 8%, white)
+    }
+
+    .badge.copper {
+      background: color-mix(in oklab, var(--copper-500) 10%, white)
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor
+    }
+
+    /* Tabelas */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0
+    }
+
+    thead th {
+      font-size: .9rem;
+      text-align: left;
+      background: var(--moon-100);
+      border-bottom: 1px solid var(--moon-300);
+      padding: 10px 12px;
+      position: sticky;
+      top: 0
+    }
+
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid var(--moon-200)
+    }
+
+    tbody tr:hover {
+      background: var(--moon-100)
+    }
+
+    /* Alertas */
+    .alert {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid
+    }
+
+    .alert.info {
+      background: color-mix(in oklab, var(--sky-500) 10%, white);
+      border-color: color-mix(in oklab, var(--sky-500) 40%, white)
+    }
+
+    .alert.warn {
+      background: color-mix(in oklab, var(--gold-500) 12%, white);
+      border-color: color-mix(in oklab, var(--gold-500) 40%, white)
+    }
+
+    .alert.error {
+      background: color-mix(in oklab, var(--rose-500) 12%, white);
+      border-color: color-mix(in oklab, var(--rose-500) 45%, white)
+    }
+
+    /* Chips / filtros */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .chip {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--moon-300);
+      background: white;
+      font-weight: 600
+    }
+
+    .chip.is-active {
+      background: var(--olive-600);
+      color: white;
+      border-color: transparent
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 30px;
+      border-top: 1px solid var(--moon-200);
+      color: var(--moon-400)
+    }
+
+    /* Utilidades */
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px
+    }
+
+    .shadow-md {
+      box-shadow: var(--shadow-md)
+    }
+
+    .surface {
+      background: white;
+      border: 1px solid var(--moon-200);
+      border-radius: var(--radius-lg)
+    }
+
+    .pill {
+      border-radius: 999px
+    }
+
+    .accent {
+      color: var(--olive-600)
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--moon-200);
+      margin: 18px 0
+    }
+
+    /* Modal simples (sem libs) */
+    .modal[hidden] {
+      display: none
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45)
+    }
+
+    .modal-panel {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px
+    }
+
+    .modal-card {
+      max-width: 520px;
+      width: 100%;
+      background: white;
+      border: 1px solid var(--moon-200);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 22px
+    }
+
+    .page-full {
+      min-height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .page-full > main {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .page-full > footer {
+      margin-top: auto;
+    }/* === Listagem de artigos compacta === */
+    .list-articles-loaded {
+      overflow-y: auto;
+      max-height: calc(100vh - 220px);
+    }
+
+/* Scrollbar (WebKit) */
+.list-articles-loaded::-webkit-scrollbar { width: 10px; height: 10px; }
+.list-articles-loaded::-webkit-scrollbar-track {
+  background: var(--moon-100); border-radius: 5px;
+}
+.list-articles-loaded::-webkit-scrollbar-thumb {
+  background: var(--olive-600); border-radius: 5px;
+}
+
+/* Scrollbar (Firefox) */
+.list-articles-loaded { scrollbar-width: thin; scrollbar-color: var(--olive-600) var(--moon-100); }
+
+/* Lista */
+.listbox { display: grid; gap: 8px; }
+.list-item {
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: left; padding: 10px 12px;
+  background: #fff; border-radius: var(--radius-md);
+  border: 1px solid var(--moon-300);
+  transition: border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+.list-item:hover { border-color: var(--olive-500); box-shadow: var(--shadow-sm); }
+.list-item[aria-selected="true"] { border: 2px solid var(--olive-600); }
+
+/* Título compacto com clamp */
+.list-item .title {
+  font-weight: 600; font-size: 14px; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Linha de metadados (DOI + Citações) */
+.list-item .meta {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--moon-400);
+}
+.list-item .meta .badge { font-weight: 700; }
+
+/* Garante que padding conte no cálculo de width/height */
+.filtering-container,
+.articles-container,
+.loaded-articles,
+.showed-article,
+.usefull-article {
+  box-sizing: border-box;
+}
+
+.filtering-container{
+  background-color: red;
+  width: 100%;
+  height: 100vh;            /* Tela cheia */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;   /* o restante cresce no flex */
+  align-items: stretch;
+  padding: 1rem;
+  gap: 1rem;                 /* espaçamento vertical entre faixas */
+}
+
+/* Cabeçalho de filtro */
+.filter-container{
+  background-color: blue;
+  width: 100%;
+  min-height: 15vh;          /* 15% da altura da viewport */
+  display: flex;
+  align-items: center;
+}
+
+/* Compat: se quiser manter o nome com typo, descomente abaixo */
+/* .progress-cotainer { } */
+
+.progress-container{
+  background-color: green;
+  width: 100%;
+  min-height: 10vh;          /* pode ser 15vh se preferir 15% */
+  display: flex;
+  align-items: center;
+}
+
+/* Área que ocupa o resto da tela */
+.articles-container{
+  background-color: yellow;
+  width: 100%;
+  flex: 1;                   /* ocupa todo o espaço restante */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0.5rem;
+  gap: 1rem;
+  min-height: 0;             /* importante para o overflow interno funcionar */
+}
+
+/* Coluna esquerda: lista */
+.loaded-articles{
+  background-color: purple;
+  width: 20%;
+  height: 100%;
+  overflow: auto;            /* rolagem própria */
+  border-radius: 8px;
+  padding: .5rem;
+  min-width: 240px;          /* evita colapso em telas estreitas */
+}
+
+/* Centro: detalhe */
+.showed-article{
+  background-color: orange;
+  width: 60%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 8px;
+  padding: .5rem;
+  min-width: 320px;
+}
+
+/* Direita: selecionados */
+.usefull-article{
+  background-color: pink;
+  width: 20%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 8px;
+  padding: .5rem;
+  min-width: 240px;
+}
+
+/* Opcional: em telas bem estreitas, empilha as colunas */
+@media (max-width: 1024px){
+  .articles-container{
+    flex-direction: column;
+  }
+  .loaded-articles, .showed-article, .usefull-article{
+    width: 100%;
+    min-height: 30%;
+  }
+}
+
+/* === IndicatorCard com header colorido === */
+.indicator-card {
+  background: white;
+  border: 1px solid var(--moon-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden; /* garante que o header grude na borda arredondada */
+  display: grid;
+}
+
+.indicator-card__header {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--moon-200);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+/* tons prontos (usa color-mix pra harmonizar com a paleta) */
+.indicator-card__header.tone-moon  { background: color-mix(in oklab, var(--moon-100) 100%, white); color: var(--ink-700); }
+.indicator-card__header.tone-olive { background: color-mix(in oklab, var(--olive-600) 12%, white); color: var(--ink-900); }
+.indicator-card__header.tone-copper{ background: color-mix(in oklab, var(--copper-500) 14%, white); color: var(--ink-900); }
+.indicator-card__header.tone-sky   { background: color-mix(in oklab, var(--sky-500) 14%, white); color: var(--ink-900); }
+.indicator-card__header.tone-gold  { background: color-mix(in oklab, var(--gold-500) 16%, white); color: var(--ink-900); }
+.indicator-card__header.tone-rose  { background: color-mix(in oklab, var(--rose-500) 14%, white); color: var(--ink-900); }
+
+.indicator-card__title {
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-content: stretch;
+  text-align: center;
+
+}
+
+.indicator-card__body {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+}
+
+.indicator-card__value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink-900);
+}
+
+.indicator-card__desc { font-size: 12px; }
+/* ====== Grid responsivo ====== */
+.indicadores-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+}
+@media (max-width: 1200px) {
+  .indicadores-grid { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 700px) {
+  .indicadores-grid { grid-template-columns: 1fr; }
+}
+
+/* ====== Card visual ====== */
+.indicator-card {
+  border: 1px solid var(--moon-200);
+  border-radius: 16px;
+  background: var(--surface, #fff);
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  min-height: 152px; /* evita “pulos” de altura */
+}
+.indicator-card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  transform: translateY(-1px);
+  border-color: var(--moon-300);
+}
+
+.indicator-card__header {
+  padding: .75rem 1rem;
+  background: var(--moon-050);
+  border-bottom: 1px solid var(--moon-150);
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+.indicator-card__title {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink-700);
+}
+
+.indicator-card__body { padding: 1rem 1rem 1.1rem; }
+.indicator-card__value {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: .25rem 0 .35rem;
+  font-variant-numeric: tabular-nums; /* dígitos alinhados */
+  letter-spacing: .2px;
+  color: var(--ink-900);
+  text-align: center;
+}
+.indicator-card__desc {
+  font-size: .9rem;
+  color: var(--ink-600);
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* trunca em 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ====== Tabs “pill” com alvos maiores ====== */
+.tabbar {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.tabbar .btn {
+  height: 40px; padding: 0 14px; border-radius: 999px;
+}
+.tabbar .btn-ghost {
+  border: 1px solid var(--moon-250);
+  background: transparent;
+}
+.tabbar .btn-primary {
+  background: var(--primary-600);
+  color: #fff;
+}
+.chips--clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* número de linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;  max-height: calc(3 * 46px);
+
+}
